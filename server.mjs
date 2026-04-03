@@ -1,9 +1,17 @@
-import { wisp } from '@mercuryworkshop/wisp-js';
-import { createServer } from 'http';
+import { wisp } from "@mercuryworkshop/wisp-js/server";
+import { WebSocketServer } from "ws";
 
-const server = createServer(wisp);
+const PORT = process.env.PORT || 3000;
 
-const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
-  console.log(`Wisp server running on port ${PORT}`);
+const server = Bun ? Bun.serve({ port: PORT, fetch: () => new Response("wisp server") }) : null;
+
+const wss = new WebSocketServer({
+  port: server ? undefined : PORT,
+  server: server ? undefined : undefined,
+});
+
+console.log(`Wisp server listening on port ${PORT}`);
+
+wss.on("connection", (ws, req) => {
+  wisp.routeRequest(ws, req);
 });
