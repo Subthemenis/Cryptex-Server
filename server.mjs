@@ -1,4 +1,4 @@
-import { wisp } from "@mercuryworkshop/wisp-js/server";
+import { server } from "@mercuryworkshop/wisp-js/server";
 import { createServer } from "http";
 
 const server = createServer();
