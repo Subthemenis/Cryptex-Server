@@ -1,4 +1,4 @@
-import wisp from "@mercuryworkshop/wisp-js/server";
+import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import { WebSocketServer } from "ws";
 
 const PORT = process.env.PORT || 3000;
